@@ -39,7 +39,7 @@ steps:
 #  displayName: 'Install node modules'
 
 - script: |
-    dockerId:Agiletestpk
+    dockerId='Agiletestpk'
     dockerPswd='Arya1010'
     docker build -t agiletestpk.azurecr.io/$(imageName) .
     docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
