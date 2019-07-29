@@ -19,11 +19,6 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
-
-- script: |
     echo "SECRET_AUTH_AZURE_CLIENT_ID=$(SECRET_AUTH_AZURE_CLIENT_ID)" > .env
     echo "Build.BuildNumber: $(Build.BuildNumber)"
     echo "Build.SourceBranchName: $(Build.SourceBranchName)"
