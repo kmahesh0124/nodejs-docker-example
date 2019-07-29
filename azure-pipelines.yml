@@ -1,0 +1,52 @@
+# Node.js with React
+# Build a Node.js project that uses React.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+variables:
+  imageName: latest:$(Build.SourceBranchName)-$(Build.BuildNumber)
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm run build
+  displayName: 'npm install and build'
+
+- script: |
+    echo "SECRET_AUTH_AZURE_CLIENT_ID=$(SECRET_AUTH_AZURE_CLIENT_ID)" > .env
+    echo "Build.BuildNumber: $(Build.BuildNumber)"
+    echo "Build.SourceBranchName: $(Build.SourceBranchName)"
+    echo "imageName: $(imageName)"
+#    docker-compose build
+  displayName: 'create .env file'
+- script: |
+    echo "SECRET_AUTH_AZURE_CLIENT_ID=$(SECRET_AUTH_AZURE_CLIENT_ID)" > .env
+    echo "Build.BuildNumber: $(Build.BuildNumber)"
+    echo "Build.SourceBranchName: $(Build.SourceBranchName)"
+    echo "imageName: $(imageName)"
+#    docker-compose build
+  displayName: 'create .env file'
+
+
+#- script: |
+#    docker-compose run app npm i
+#  displayName: 'Install node modules'
+
+- script: |
+    docker build -t pklaunchpad.azurecr.io/$(imageName) .
+    docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
+    docker push $(dockerId).azurecr.io/$(imageName)
+  displayName: 'Build Docker Image'
+
+
