@@ -39,7 +39,7 @@ steps:
 #  displayName: 'Install node modules'
 
 - script: |
-    docker build -t pklaunchpad.azurecr.io/$(imageName) .
+    docker build -t agiletestpk.azurecr.io/$(imageName) .
     docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
     docker push $(dockerId).azurecr.io/$(imageName)
   displayName: 'Build Docker Image'
