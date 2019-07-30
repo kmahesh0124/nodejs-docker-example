@@ -24,7 +24,7 @@ steps:
     echo "BUILD_SOURCEBRANCHNAME: $(BUILD_SOURCEBRANCHNAME)"
     echo "Build.BuildNumber: $(Build.BuildNumber)"
     echo "Build.SourceBranchName: $(Build.SourceBranchName)"
-    echo "SOURCE_COMMITID: $(system.pullRequest.sourceCommitId)"
+#   echo "SOURCE_COMMITID: $(system.pullRequest.sourceCommitId)"
     echo "imageName: $(imageName)"
 #    docker-compose build
   displayName: 'create .env file'
