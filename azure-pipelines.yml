@@ -7,7 +7,7 @@ trigger:
 - master
 
 variables:
-  imageName: hello-world:$(Build.SourceBranchName)-$(Build.BuildNumber)-$(Build.BuildNumber)
+  imageName: latest:$(Build.SourceBranchName)-$(Build.BuildNumber)-$(Build.BuildNumber)
   
 
 pool:
