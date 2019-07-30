@@ -23,7 +23,7 @@ steps:
     echo "SECRET_AUTH_AZURE_CLIENT_ID=$(SECRET_AUTH_AZURE_CLIENT_ID)" > .env
     echo "Build.BuildNumber: $(Build.BuildNumber)"
     echo "Build.SourceBranchName: $(Build.SourceBranchName)"
-    echo "Build.SOURCE_COMMITID: $(SOURCE_COMMITID)"
+    echo "Build.SOURCE_COMMITID: $(system.pullRequest.sourceCommitId)"
     echo "imageName: $(imageName)"
 #    docker-compose build
   displayName: 'create .env file'
