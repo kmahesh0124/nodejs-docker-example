@@ -41,7 +41,7 @@ steps:
     - docker build -t agiletestpk.azurecr.io/$(imageName) .
     - docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
     - docker push $(dockerId).azurecr.io/$(imageName)
-    - az webapp config container set -n pk-launchpad -g pk-launchpad -i pklaunchpad.azurecr.io/launchpad:2019.05.14.PR-312.1 -s DEV1
+   
 
 # - script: |
 #     docker build -t agiletestpk.azurecr.io/$(imageName) .
