@@ -37,7 +37,7 @@ steps:
 - script: |
     docker build -t agiletestpk.azurecr.io/$(imageName) .
     docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
-    docker push agiletestpk.azurecr.io/latest:master
+    docker push agiletestpk.azurecr.io/latest
   displayName: 'Build Docker Image'
 
 
