@@ -29,6 +29,7 @@ steps:
     echo "SECRET_AUTH_AZURE_CLIENT_ID=$(SECRET_AUTH_AZURE_CLIENT_ID)" > .env
     echo "Build.BuildNumber: $(Build.BuildNumber)"
     echo "Build.SourceBranchName: $(Build.SourceBranchName)"
+    echo "Build.SOURCE_COMMIT: $(SOURCE_COMMIT)"
     echo "imageName: $(imageName)"
 #    docker-compose build
   displayName: 'create .env file'
@@ -40,8 +41,8 @@ steps:
 
 - script: |
     def dockerPswd='qc0BeKchRSwGVLeVgW67xIbWQV=fwWcJ'
-    docker build -t agiletestpk.azurecr.io/$(imageName) .
-    docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
+    docker build -t agiletestpk.azurecr.io/$(imageName)/$(SOURCE_COMMIT) .
+    docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io/$(SOURCE_COMMIT)
     docker push $(dockerId).azurecr.io/$(imageName)
   displayName: 'Build Docker Image'
 
