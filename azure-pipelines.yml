@@ -7,7 +7,7 @@ trigger:
 - master
 
 variables:
-  imageName: Agiletestpk:$(Build.SourceBranchName)-$(Build.BuildNumber)
+  imageName: agiletestpk:$(Build.SourceBranchName)-$(Build.BuildNumber)
 
 pool:
   vmImage: 'ubuntu-latest'
