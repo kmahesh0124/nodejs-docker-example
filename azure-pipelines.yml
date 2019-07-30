@@ -18,13 +18,7 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: |
-    echo "SECRET_AUTH_AZURE_CLIENT_ID=$(SECRET_AUTH_AZURE_CLIENT_ID)" > .env
-    echo "Build.BuildNumber: $(Build.BuildNumber)"
-    echo "Build.SourceBranchName: $(Build.SourceBranchName)"
-    echo "imageName: $(imageName)"
-#    docker-compose build
-  displayName: 'create .env file'
+
 - script: |
     echo "SECRET_AUTH_AZURE_CLIENT_ID=$(SECRET_AUTH_AZURE_CLIENT_ID)" > .env
     echo "Build.BuildNumber: $(Build.BuildNumber)"
