@@ -20,6 +20,8 @@ steps:
   displayName: 'Install Node.js'
 
 
+
+
 - script: |
     echo "SECRET_AUTH_AZURE_CLIENT_ID=$(SECRET_AUTH_AZURE_CLIENT_ID)" > .env
     echo "BUILD_SOURCEBRANCHNAME: $(BUILD_SOURCEBRANCHNAME)"
@@ -34,10 +36,17 @@ steps:
 #    docker-compose run app npm i
 #  displayName: 'Install node modules'
 
-- script: |
-    docker build -t agiletestpk.azurecr.io/$(imageName) .
-    docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
-    docker push $(dockerId).azurecr.io/$(imageName)
-  displayName: 'Build Docker Image'
+- script: 
+  condition: ${{ if contains(Build.SourceBranchName, 'mahesh')}}
+    - docker build -t agiletestpk.azurecr.io/$(imageName) .
+    - docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
+    - docker push $(dockerId).azurecr.io/$(imageName)
+    - az webapp config container set -n pk-launchpad -g pk-launchpad -i pklaunchpad.azurecr.io/launchpad:2019.05.14.PR-312.1 -s DEV1
+
+# - script: |
+#     docker build -t agiletestpk.azurecr.io/$(imageName) .
+#     docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
+#     docker push $(dockerId).azurecr.io/$(imageName)
+#   displayName: 'Build Docker Image'
 
 
