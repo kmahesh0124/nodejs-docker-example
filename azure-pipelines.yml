@@ -35,9 +35,8 @@ steps:
 #  displayName: 'Install node modules'
 
 - script: |
-    def dockerPswd='qc0BeKchRSwGVLeVgW67xIbWQV=fwWcJ'
     docker build -t agiletestpk.azurecr.io/$(imageName)/$(SOURCE_COMMITID) .
-    docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io/$(SOURCE_COMMITID)
+    docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io /$(SOURCE_COMMITID)
     docker push $(dockerId).azurecr.io/$(imageName)
   displayName: 'Build Docker Image'
 
