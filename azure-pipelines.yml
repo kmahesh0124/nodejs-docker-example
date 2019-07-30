@@ -21,6 +21,7 @@ steps:
 
 - script: |
     echo "SECRET_AUTH_AZURE_CLIENT_ID=$(SECRET_AUTH_AZURE_CLIENT_ID)" > .env
+    echo "BUILD_SOURCEBRANCHNAME: $(BUILD_SOURCEBRANCHNAME)"
     echo "Build.BuildNumber: $(Build.BuildNumber)"
     echo "Build.SourceBranchName: $(Build.SourceBranchName)"
     echo "SOURCE_COMMITID: $(system.pullRequest.sourceCommitId)"
