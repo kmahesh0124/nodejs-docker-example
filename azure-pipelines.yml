@@ -32,13 +32,12 @@ steps:
   displayName: 'create .env file'
 
 
-- script: |
+#- script: |
 #    docker-compose run app npm i
 #  displayName: 'Install node modules'
 - task: PublishBuildArtifacts@1
   condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'master'))
-  
-    - script
+   - stpes :- script
      docker build -t agiletestpk.azurecr.io/$(imageName) .
      docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
      docker push $(dockerId).azurecr.io/$(imageName)
