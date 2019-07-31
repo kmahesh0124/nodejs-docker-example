@@ -37,7 +37,7 @@ steps:
 #  displayName: 'Install node modules'
 
 - script: 
-  condition: and(succeeded(),contains('Build.SourceBranchName'), 'mahesh'))
+  condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'mahesh'))
       docker build -t agiletestpk.azurecr.io/$(imageName) .
       docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
       docker push $(dockerId).azurecr.io/$(imageName)
