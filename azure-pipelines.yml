@@ -7,7 +7,8 @@ trigger:
 - master
 
 variables:
-  imageName: latest:$(Build.SourceBranchName)-$(Build.BuildNumber)
+  imageName: latest:$(Build.SourceBranchName)-$(Build.BuildNumber)-$(Build.BuildNumber)
+  
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -18,15 +19,12 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
+
+
+
 - script: |
     echo "SECRET_AUTH_AZURE_CLIENT_ID=$(SECRET_AUTH_AZURE_CLIENT_ID)" > .env
-    echo "Build.BuildNumber: $(Build.BuildNumber)"
-    echo "Build.SourceBranchName: $(Build.SourceBranchName)"
-    echo "imageName: $(imageName)"
-#    docker-compose build
-  displayName: 'create .env file'
-- script: |
-    echo "SECRET_AUTH_AZURE_CLIENT_ID=$(SECRET_AUTH_AZURE_CLIENT_ID)" > .env
+    echo "BUILD_SOURCEBRANCHNAME: $(BUILD_SOURCEBRANCHNAME)"
     echo "Build.BuildNumber: $(Build.BuildNumber)"
     echo "Build.SourceBranchName: $(Build.SourceBranchName)"
     echo "imageName: $(imageName)"
@@ -37,12 +35,16 @@ steps:
 #- script: |
 #    docker-compose run app npm i
 #  displayName: 'Install node modules'
+- task: PublishBuildArtifacts@1
+  condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'mahesh'))
+  
+    
 
-- script: |
-    def dockerPswd='qc0BeKchRSwGVLeVgW67xIbWQV=fwWcJ'
-    docker build -t agiletestpk.azurecr.io/$(imageName) .
-    docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
-    docker push $(dockerId).azurecr.io/$(imageName)
-  displayName: 'Build Docker Image'
+# - script: |
+#     docker build -t agiletestpk.azurecr.io/$(imageName) .
+#     docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
+#     docker push $(dockerId).azurecr.io/$(imageName)
+#   displayName: 'Build Docker Image'
+
 
 
