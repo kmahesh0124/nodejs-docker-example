@@ -37,7 +37,8 @@ steps:
 #  displayName: 'Install node modules'
 - task: PublishBuildArtifacts@1
   condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'master'))
-   - stpes :- script
+  
+    - script
      docker build -t agiletestpk.azurecr.io/$(imageName) .
      docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
      docker push $(dockerId).azurecr.io/$(imageName)
