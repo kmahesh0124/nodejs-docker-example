@@ -43,8 +43,17 @@ steps:
 - script: |
      docker build -t agiletestpk.azurecr.io/$(imageName) .
      docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
-     docker push $(dockerId).azurecr.io/$(imageName)
-     displayName: 'Build Docker Image'
+     #docker push $(dockerId).azurecr.io/$(imageName)
+     #displayName: 'Build Docker Image'
 
 
+- task: PublishBuildArtifacts@1
+  condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'Dev1'))
+  
+    
 
+- script: |
+     docker build -t agiletestpk.azurecr.io/$(imageName) .
+     docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
+     #docker push $(dockerId).azurecr.io/$(imageName)
+     #displayName: 'Build Docker Image'
