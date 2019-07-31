@@ -4,7 +4,16 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+    branches:
+        include:
+        - master
+        - mahesh/*
+        - Dev1/*
+        - QA1/*
+        - DEV2/*
+        - QA2/*
+        - staging/*
+
 
 variables:
   imageName: latest:$(Build.SourceBranchName)-$(Build.BuildNumber)-$(Build.BuildNumber)
@@ -36,6 +45,7 @@ steps:
 #    docker-compose run app npm i
 #  displayName: 'Install node modules'
 - task: PublishBuildArtifacts@1
+
   condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'mahesh'))
   
     
@@ -48,3 +58,22 @@ steps:
 
 
 
+- task : 
+  type: git-clone
+
+  description: 
+  working_directory: 
+  repo:
+  git: Dev1
+  
+  when:
+    branch:
+      ignore: [ masteter]
+      igonore:
+  on_success:
+    ...
+  on_fail:
+    ...
+  on_finish:
+    ...
+  retry:
