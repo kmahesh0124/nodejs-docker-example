@@ -32,7 +32,7 @@ steps:
   displayName: 'create .env file'
 
 
-#- script: |
+- script: |
 #    docker-compose run app npm i
 #  displayName: 'Install node modules'
 - task: PublishBuildArtifacts@1
