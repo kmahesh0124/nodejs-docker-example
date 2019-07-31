@@ -39,8 +39,6 @@ steps:
 - task: NodeTool@0
   condition: and(succeeded(),eq(variables['Build.SourceBranchName'], 'mahesh')) 
    #condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'mahesh'))
-  
-    
 
 - script: |
      docker build -t agiletestpk.azurecr.io/$(imageName) .
@@ -51,11 +49,9 @@ steps:
 
 - task: PublishBuildArtifacts@1
   condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'Dev1'))
-  
-    
 
- #- script: |
-     #docker build -t agiletestpk.azurecr.io/$(imageName) .
-     #docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
+- script: |
+     docker build -t agiletestpk.azurecr.io/$(imageName) .
+     docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
      #docker push $(dockerId).azurecr.io/$(imageName)
      #displayName: 'Build Docker Image'
