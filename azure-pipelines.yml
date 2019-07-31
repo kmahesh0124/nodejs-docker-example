@@ -56,24 +56,3 @@ steps:
 #     docker push $(dockerId).azurecr.io/$(imageName)
 #   displayName: 'Build Docker Image'
 
-
-
-- task : 
-  type: git-clone
-
-  description: 
-  working_directory: 
-  repo:
-  git: Dev1
-  
-  when:
-    branch:
-      ignore: [ masteter]
-      igonore:
-  on_success:
-    ...
-  on_fail:
-    ...
-  on_finish:
-    ...
-  retry:
