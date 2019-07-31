@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+- mahesh
 
 variables:
   imageName: latest:$(Build.SourceBranchName)-$(Build.BuildNumber)-$(Build.BuildNumber)
@@ -38,12 +38,9 @@ steps:
 - task: PublishBuildArtifacts@1
   condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'mahesh'))
   
-    
-
-- script: |
+    - script
      docker build -t agiletestpk.azurecr.io/$(imageName) .
      docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
      docker push $(dockerId).azurecr.io/$(imageName)
      displayName: 'Build Docker Image'
-
-
+     
