@@ -8,7 +8,7 @@ trigger:
 - Dev1
 
 variables:
-  imageName: latest:$(Build.SourceBranchName)-$(Build.BuildNumber)-$(Build.BuildNumber)
+  #imageName: master:$(Build.SourceBranchName)-$(Build.BuildNumber)-$(Build.BuildNumber)
   imageName: Dev1:$([Build.SourceBranchName], 'Dev1') -$(Dev1)-$(Build.BuildNumber)-$(Build.BuildNumber)
 
 pool:
