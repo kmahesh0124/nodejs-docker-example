@@ -36,8 +36,9 @@ steps:
 #- script: |
 #    docker-compose run app npm i
 #  displayName: 'Install node modules'
-- task: PublishBuildArtifacts@1
-  condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'mahesh'))
+- task: NodeTool@0
+  condition: and(succeeded(),eq(variables['Build.SourceBranchName'], 'mahesh')) 
+   #condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'mahesh'))
   
     
 
