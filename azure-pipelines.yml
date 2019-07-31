@@ -35,13 +35,12 @@ steps:
 #- script: |
 #    docker-compose run app npm i
 #  displayName: 'Install node modules'
-
-- script: 
+- task: PublishBuildArtifacts@1
   condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'mahesh'))
-      docker build -t agiletestpk.azurecr.io/$(imageName) .
-      docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
-      docker push $(dockerId).azurecr.io/$(imageName)
-   
+    docker build -t agiletestpk.azurecr.io/$(imageName) .
+    docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
+    docker push $(dockerId).azurecr.io/$(imageName)
+    
 
 # - script: |
 #     docker build -t agiletestpk.azurecr.io/$(imageName) .
