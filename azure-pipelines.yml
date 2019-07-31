@@ -9,7 +9,7 @@ trigger:
 variables:
   imageName: latest:$(Build.SourceBranchName)-$(Build.BuildNumber)-$(Build.BuildNumber)
   inputs:
-      tags: |
+      tags: 
        Build-$(Build.BuildNumber)
 
 pool:
