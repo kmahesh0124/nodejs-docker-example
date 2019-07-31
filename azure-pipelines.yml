@@ -36,7 +36,7 @@ steps:
 #    docker-compose run app npm i
 #  displayName: 'Install node modules'
 - task: PublishBuildArtifacts@1
-  condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'mahesh'))
+  condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'master'))
   
     - script
      docker build -t agiletestpk.azurecr.io/$(imageName) .
