@@ -9,6 +9,10 @@ trigger:
 - Dev1
 - mahesh 
 
+uri:https://aryakrishna247@dev.azure.com/aryakrishna247/Agiletest/_git/PipelinePipeline-Dev1.yml
+uri:https://aryakrishna247@dev.azure.com/aryakrishna247/Agiletest/_git/Pipeline/Pipeline-Master.yml
+uri:https://aryakrishna247@dev.azure.com/aryakrishna247/Agiletest/_git/Pipeline/Pipeline-mahesh.yml
+
 pool:
   vmImage: 'ubuntu-latest'
  
@@ -26,5 +30,16 @@ steps:
   
 job 1:
      stage: Dev1
+     script:
+     condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'Dev1'))  
+
+job 2:
+     stage: master
+     script:
+     condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'master'))  
+
+
+job 3:
+     stage: mahesh
      script:
      condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'mahesh'))  
