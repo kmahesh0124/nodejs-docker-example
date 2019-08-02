@@ -1,58 +1,47 @@
-# Node.js with React
-# Build a Node.js project that uses React.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
-trigger:
-    branches:
-        include:
-        - master
-        - mahesh/*
-        - Dev1/*
-        - QA1/*
-        - DEV2/*
-        - QA2/*
-        - staging/*
-
-
-variables:
-  imageName: latest:$(Build.SourceBranchName)-$(Build.BuildNumber)-$(Build.BuildNumber)
-  
-
 pool:
   vmImage: 'ubuntu-latest'
-
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-
-
-
-
-- script: |
-    echo "SECRET_AUTH_AZURE_CLIENT_ID=$(SECRET_AUTH_AZURE_CLIENT_ID)" > .env
-    echo "BUILD_SOURCEBRANCHNAME: $(BUILD_SOURCEBRANCHNAME)"
-    echo "Build.BuildNumber: $(Build.BuildNumber)"
-    echo "Build.SourceBranchName: $(Build.SourceBranchName)"
-    echo "imageName: $(imageName)"
-#    docker-compose build
-  displayName: 'create .env file'
-
-
-#- script: |
-#    docker-compose run app npm i
-#  displayName: 'Install node modules'
-- task: PublishBuildArtifacts@1
-
-  condition: and(succeeded(),contains(variables['Build.SourceBranchName'], 'mahesh'))
-  
     
+  resources:         
+  repositories:
+  - repository: $(repo_name)   
+    type: GitHub
+    connection: myGitHubConnection
+    source: $(repo_source)
+    pr:
+      branches:
+        include:
+        - develop
+        - test
+        - acceptance
+        - master
+        exclude:
+      #  - releases/
+    #  paths:
+    #    include:
+    #    - web/*         
+    #    exclude:
+    #    - web/README.md
 
-# - script: |
-#     docker build -t agiletestpk.azurecr.io/$(imageName) .
-#     docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
-#     docker push $(dockerId).azurecr.io/$(imageName)
-#   displayName: 'Build Docker Image'
+
+        variables:
+          imageName: agiletest:$(Build.SourceBranchName)-$(Build.BuildNumber)
+
+        steps:
+        - task: NodeTool@0
+          inputs:
+            versionSpec: '10.x'
+          displayName: 'Install Node.js'
+         
+        - script: |
+            echo "SECRET_AUTH_AZURE_CLIENT_ID=$(SECRET_AUTH_AZURE_CLIENT_ID)" > .env
+            echo "Build.BuildNumber: $(Build.BuildNumber)"
+            echo "Build.SourceBranchName: $(Build.SourceBranchName)"
+            echo "imageName: $(imageName)"
+          displayName: 'create .env file'
+
+        - script: |
+            docker build -t agiletest.azurecr.io/$(imageName)-$(Build.SourceBranchName) .
+            docker login -u $(dockerId) -p $(dockerPswd) $(dockerId).azurecr.io
+            docker push $(dockerId).azurecr.io/$(imageName)-$(Build.SourceBranchName)
+          displayName: 'Build Docker Image'
 
