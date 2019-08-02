@@ -7,7 +7,7 @@ trigger:
 - mahesh
 
 variables:
-  imageName: latest:$(Build.SourceBranchName)-$(Build.BuildNumber)-$(Build.BuildNumber)
+  imageName: latest:$(Build.SourceBranchName)-$(Build.BuildNumber)
   inputs:
       tags: 
        Build-$(Build.BuildNumber)
